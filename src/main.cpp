@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
 	//display object to handle window management and rendering
-	int width = 1024;
+	int width = 768;
 	int height = 768;
 
 	Graphics display;
@@ -15,27 +15,31 @@ int main(int argc, char** argv)
 
 	display.init(width, height);
 
-	Plane cplane(width, height, 0, 0, 1 / 2.0, 1 / 2.0);
+	Plane cplane(width, height, 0, 0, 3.0 / 2.0, 3.0 / 2.0);
 
 	for(int y = 0; y < height; y++)
 	{
 		for(int x = 0; x < width; x++)
 		{
-			Complex z((double)x / (double)width * 1.0 - 1.0 / 2.0, (double)y / (double) height * 1.0 - 1.0 / 2.0);
+			Complex z((double)x / (double)width * 3.0 - 3.0 / 2.0, (double)y / (double) height * 3.0 - 3.0 / 2.0);
 			bool inf = false;
 			Complex result;
-			for(int i = 0; i < 100; i++)
+			int tries = 0;
+			for(int i = 0; i < 255; i++)
 			{
 				result = result.multiply(result).add(z);
-				if(result.mag2() > 100)
+				if(result.mag2() > 255)
 				{
 					inf = true;
 					break;
 				}
+				tries++;
 			}
 
-			if(!inf)
-				cplane.setPoint(z.re(), z.im(), 255, 255, 255, 255);
+			
+			cplane.setPoint(z.re(), z.im(), tries, tries, tries, tries);
+
+		
 		}
 	}
 
