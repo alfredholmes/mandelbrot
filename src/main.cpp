@@ -15,13 +15,21 @@ int main(int argc, char** argv)
 
 	display.init(width, height);
 
-	Plane cplane(width, height, 0, 0, 3.0 / 2.0, 3.0 / 2.0);
+
+	double center_x = 0;
+	double center_y = 0;
+	double plane_height = 3.0;
+	double plane_width = 3.0;
+
+	Plane cplane(width, height, center_x, center_y, plane_width / 2.0, plane_height / 2.0);
 
 	for(int y = 0; y < height; y++)
 	{
 		for(int x = 0; x < width; x++)
 		{
-			Complex z((double)x / (double)width * 3.0 - 3.0 / 2.0, (double)y / (double) height * 3.0 - 3.0 / 2.0);
+		  double c_x = ((double)x / (double)width) * plane_width - plane_width / 2.0 + center_x;
+			double c_y = (double)y / (double) height * plane_height - plane_height / 2.0 + center_y;
+			Complex z(c_x, c_y);
 			bool inf = false;
 			Complex result;
 			int tries = 0;
@@ -36,10 +44,10 @@ int main(int argc, char** argv)
 				tries++;
 			}
 
-			
+
 			cplane.setPoint(z.re(), z.im(), tries, tries, tries, tries);
 
-		
+
 		}
 	}
 

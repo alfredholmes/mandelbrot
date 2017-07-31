@@ -3,7 +3,7 @@
 Plane::Plane(int _width, int _height, double _center_x, double _center_y, double _hwidth, double _hheight):
 	width(_width), height(_height), center_x(_center_x), center_y(_center_y), hwidth(_hwidth), hheight(_hheight)
 {
-	PixelData = new char[width * height * 4];
+	PixelData = new char[(1 + width) * (1 + height) * 4];
 	memset(PixelData, 0, (width * height * 4) * sizeof(char));
 	for(int i = 0; i < width * height * 4; i += 4)
 		PixelData[i + 3] = 255;
@@ -45,7 +45,7 @@ void Plane::setPoint(double x, double y, char r, char g, char b, char a)
 	if(rendery < 0 || rendery > height)
 		return;
 
-	int id = 4 * (renderx + rendery * width);
+	int id = 4 * (renderx + rendery * width) ;
 
 	PixelData[id + 0] = r;
 	PixelData[id + 1] = g;
